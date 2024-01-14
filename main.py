@@ -12,8 +12,7 @@ def input_error(func):
             return Error
         except ValueError as Error:
             return Error
-        except TypeError as Error:
-            return Error
+
     return inner
 
 
@@ -107,7 +106,7 @@ def main():
 
             if command[0] in command_dict2:
                 result = get_handler2(command[0])(contact)
-                #if result is not None:
+                # if result is not None:
                 print(result)
             else:
                 print("This is an incorrect command. Try again, please")
