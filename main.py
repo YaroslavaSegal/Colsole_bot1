@@ -44,30 +44,28 @@ def print_phone(x):
         raise TypeError
     name = ''.join(x)
     phone = phone_book[name]
-    print(phone)
+    return phone
 
 
 def show_all():
-    for key, value in phone_book.items():
-        print(key, value)
+    return phone_book
 
 
 def final():
-    print('Good bye!')
-    return exit()
+    return 'Good bye!'
 
 
 def greeting():
-    print("How can I help you?")
+    return "How can I help you?"
 
 
 command_dict1 = {
-            "good bye": final,
-            "close": final,
-            "exit": final,
-            "hello": greeting,
-            "show all": show_all
-        }
+    "good bye": final,
+    "close": final,
+    "exit": final,
+    "hello": greeting,
+    "show all": show_all
+}
 
 command_dict2 = {
     "add": add_contact,
@@ -80,8 +78,8 @@ def get_handler1(x):
     return command_dict1[x]
 
 
-def get_handler2(y):
-    return command_dict2[y]
+def get_handler2(x):
+    return command_dict2[x]
 
 
 def main():
@@ -89,15 +87,18 @@ def main():
         command = input().lower().strip()
 
         if command in command_dict1:
-            foo = get_handler1(command)
-            foo()
+            result = get_handler1(command)()
+            print(result)
+            if result == "Good bye!":
+                break
         else:
             command = command.split(" ")
             contact = command[1:]
 
             if command[0] in command_dict2:
-                func = get_handler2(command[0])
-                func(contact)
+                result = get_handler2(command[0])(contact)
+                if command[0] == "phone" and result is not None:
+                    print(result)
             else:
                 print("This is an incorrect command. Try again, please")
 
