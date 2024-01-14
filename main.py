@@ -42,16 +42,19 @@ def change_contact(user):
             phone_book[user[0]] = user[1]
             return f'contact {user[0]} has been changed to phone {user[1]}'
     else:
-        raise IndexError("No such name in phone book")
+        raise KeyError("No such name in phone book")
 
 
 @input_error
 def print_phone(x):
     if not x:
-        raise TypeError("Enter name please")
+        raise ValueError("Enter name please")
     name = ''.join(x)
-    phone = phone_book[name]
-    return f'phone of user {name} is {phone}'
+    if name in phone_book:
+        phone = phone_book[name]
+        return f'phone of user {name} is {phone}'
+    else:
+        raise KeyError("No such name in phone book")
 
 
 def show_all():
@@ -104,8 +107,8 @@ def main():
 
             if command[0] in command_dict2:
                 result = get_handler2(command[0])(contact)
-                if result is not None:
-                    print(result)
+                #if result is not None:
+                print(result)
             else:
                 print("This is an incorrect command. Try again, please")
 
