@@ -7,14 +7,13 @@ def input_error(func):
             result = func(x)
             return result
         except IndexError:
-            print("Enter phone please")
+            return "Enter phone please"
         except KeyError:
-            print("No such name in phone book")
+            return "No such name in phone book"
         except ValueError:
-            print("Give me user name and phone please")
+            return "Give me user name and phone please"
         except TypeError:
-            print("Enter name please")
-
+            return "Enter name please"
     return inner
 
 
@@ -24,7 +23,6 @@ def add_contact(user):
         raise ValueError
     if not phone_book.get(user[0]):
         phone_book[user[0]] = user[1]
-    return phone_book
 
 
 @input_error
@@ -33,7 +31,6 @@ def change_contact(user):
         raise ValueError
     if phone_book.get(user[0]):
         phone_book[user[0]] = user[1]
-        return phone_book
     else:
         return phone_book[user[0]]
 
@@ -97,7 +94,7 @@ def main():
 
             if command[0] in command_dict2:
                 result = get_handler2(command[0])(contact)
-                if command[0] == "phone" and result is not None:
+                if result is not None:
                     print(result)
             else:
                 print("This is an incorrect command. Try again, please")
