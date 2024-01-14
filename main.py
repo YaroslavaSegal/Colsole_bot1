@@ -61,11 +61,7 @@ def greeting():
     print("How can I help you?")
 
 
-
-def main():
-    while True:
-        command = input().lower().strip()
-        command_dict1 = {
+command_dict1 = {
             "good bye": final,
             "close": final,
             "exit": final,
@@ -73,17 +69,24 @@ def main():
             "show all": show_all
         }
 
-        command_dict2 = {
-            "add": add_contact,
-            "change": change_contact,
-            "phone": print_phone
-        }
+command_dict2 = {
+    "add": add_contact,
+    "change": change_contact,
+    "phone": print_phone
+}
 
-        def get_handler1(x):
-            return command_dict1[x]
 
-        def get_handler2(y):
-            return command_dict2[y]
+def get_handler1(x):
+    return command_dict1[x]
+
+
+def get_handler2(y):
+    return command_dict2[y]
+
+
+def main():
+    while True:
+        command = input().lower().strip()
 
         if command in command_dict1:
             foo = get_handler1(command)
