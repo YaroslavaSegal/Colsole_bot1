@@ -24,8 +24,11 @@ def add_contact(user):
     if phone_book.get(user[0]):
         raise KeyError("Contact already exists")
     else:
-        phone_book[user[0]] = user[1]
-        return f'contact {user[0]} has been added with phone {user[1]}'
+        if len(user) == 1:
+            raise IndexError("Enter phone please")
+        else:
+            phone_book[user[0]] = user[1]
+            return f'contact {user[0]} has been added with phone {user[1]}'
 
 
 @input_error
@@ -33,8 +36,11 @@ def change_contact(user):
     if not user:
         raise ValueError("Give me user name and phone please")
     if phone_book.get(user[0]):
-        phone_book[user[0]] = user[1]
-        return f'contact {user[0]} has been changed to phone {user[1]}'
+        if len(user) == 1:
+            raise IndexError("Enter phone please")
+        else:
+            phone_book[user[0]] = user[1]
+            return f'contact {user[0]} has been changed to phone {user[1]}'
     else:
         raise IndexError("No such name in phone book")
 
