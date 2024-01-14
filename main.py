@@ -6,42 +6,46 @@ def input_error(func):
         try:
             result = func(x)
             return result
-        except IndexError:
-            return "Enter phone please"
-        except KeyError:
-            return "No such name in phone book"
-        except ValueError:
-            return "Give me user name and phone please"
-        except TypeError:
-            return "Enter name please"
+        except IndexError as Error:
+            return Error
+        except KeyError as Error:
+            return Error
+        except ValueError as Error:
+            return Error
+        except TypeError as Error:
+            return Error
     return inner
 
 
 @input_error
 def add_contact(user):
     if not user:
-        raise ValueError
-    if not phone_book.get(user[0]):
+        raise ValueError("Give me user name and phone please")
+    if phone_book.get(user[0]):
+        raise KeyError("Contact already exist")
+    else:
         phone_book[user[0]] = user[1]
+        return f'contact {user[0]} has bean added with phone {user[1]}'
 
 
 @input_error
 def change_contact(user):
     if not user:
-        raise ValueError
+        raise ValueError("Give me user name and phone please")
     if phone_book.get(user[0]):
         phone_book[user[0]] = user[1]
+        return f'contact {user[0]} has bean changed to phone {user[1]}'
     else:
-        return phone_book[user[0]]
+        raise IndexError("No such name in phone book")
 
 
 @input_error
 def print_phone(x):
     if not x:
-        raise TypeError
+        raise TypeError("Enter name please")
     name = ''.join(x)
     phone = phone_book[name]
-    return phone
+    return f'phone of user {name} is {phone}'
 
 
 def show_all():
